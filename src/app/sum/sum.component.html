@@ -1,0 +1,21 @@
+<div class="sum-container">
+  <div class="input-group">
+    <label for="firstNumber">First Number:</label>
+    <input id="firstNumber" type="text" [(ngModel)]="firstNumber" placeholder="Enter first number" />
+  </div>
+
+  <div class="input-group">
+    <label for="secondNumber">Second Number:</label>
+    <input id="secondNumber" type="text" [(ngModel)]="secondNumber" placeholder="Enter second number" />
+  </div>
+
+  <button (click)="calculateSum()">Calculate Sum</button>
+
+  <div class="result" *ngIf="result !== null">
+    <p>The sum is: {{ result }}</p>
+  </div>
+
+  <div class="error" *ngIf="errorMessage">
+    <p>{{ errorMessage }}</p>
+  </div>
+</div>
