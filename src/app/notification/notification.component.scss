@@ -1,0 +1,12 @@
+.notification {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #323232;
+  color: #fff;
+  padding: 16px;
+  border-radius: 4px;
+  opacity: 0.9;
+  transition: opacity 0.3s ease-in-out;
+  z-index: 1000;
+}
