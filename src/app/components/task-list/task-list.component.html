@@ -1,0 +1,17 @@
+<div class="task-list-container">
+  <div class="input-container">
+    <input 
+      type="text" 
+      placeholder="Enter a new task" 
+      [(ngModel)]="newTaskDescription" 
+      (keydown)="onKeydown($event)"
+    >
+    <button (click)="onAddTask()">Add</button>
+  </div>
+  <ul class="task-list">
+    <li *ngFor="let task of tasks" class="task-item">
+      <span>{{ task.description }}</span>
+      <button class="remove-button" (click)="onRemoveTask(task.id)">Remove</button>
+    </li>
+  </ul>
+</div>
