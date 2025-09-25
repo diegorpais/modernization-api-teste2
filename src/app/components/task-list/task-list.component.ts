@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Task, TaskService } from 'src/app/services/task.service';
+import { Task } from '../../models/task.model';
+import { TaskService } from '../../services/task.service';
 
 @Component({
   selector: 'app-task-list',
@@ -7,25 +8,33 @@ import { Task, TaskService } from 'src/app/services/task.service';
   styleUrls: ['./task-list.component.scss']
 })
 export class TaskListComponent implements OnInit {
+  newTaskDescription: string = '';
   tasks: Task[] = [];
-  taskInput: string = '';
 
-  constructor(private taskService: TaskService) {}
+  constructor(private taskService: TaskService) { }
 
   ngOnInit(): void {
-    this.taskService.tasks$.subscribe((tasks: Task[]) => {
-      this.tasks = tasks;
-    });
+    this.tasks = this.taskService.getTasks();
   }
 
-  addTask(): void {
-    if (this.taskInput.trim()) {
-      this.taskService.addTask(this.taskInput);
-      this.taskInput = '';
+  onAddTask(): void {
+    if (this.newTaskDescription.trim()) {
+      const task = this.taskService.addTask(this.newTaskDescription);
+      if (task) {
+        this.newTaskDescription = '';
+        this.tasks = this.taskService.getTasks();
+      }
     }
   }
 
-  removeTask(taskId: number): void {
-    this.taskService.removeTask(taskId);
+  onRemoveTask(id: number): void {
+    this.taskService.removeTask(id);
+    this.tasks = this.taskService.getTasks();
+  }
+
+  onKeydown(event: KeyboardEvent): void {
+    if (event.key === 'Enter') {
+      this.onAddTask();
+    }
   }
 }

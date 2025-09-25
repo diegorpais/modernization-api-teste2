@@ -1,20 +1,17 @@
-<div class="task-container">
-  <h1 class="title">Task Management</h1>
-  
-  <div class="input-group">
+<div class="task-list-container">
+  <div class="input-container">
     <input 
       type="text" 
-      [(ngModel)]="taskInput" 
-      (keyup.enter)="addTask()" 
-      placeholder="Enter task description" 
-      class="task-input">
-    <button (click)="addTask()" class="add-button">Add</button>
+      placeholder="Enter a new task" 
+      [(ngModel)]="newTaskDescription" 
+      (keydown)="onKeydown($event)"
+    >
+    <button (click)="onAddTask()">Add</button>
   </div>
-  
   <ul class="task-list">
-    <li class="task-item" *ngFor="let task of tasks">
-      <span class="task-text">{{ task.text }}</span>
-      <button (click)="removeTask(task.id)" class="remove-button">Remove</button>
+    <li *ngFor="let task of tasks" class="task-item">
+      <span>{{ task.description }}</span>
+      <button class="remove-button" (click)="onRemoveTask(task.id)">Remove</button>
     </li>
   </ul>
 </div>

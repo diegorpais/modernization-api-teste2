@@ -1,34 +1,30 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-
-export interface Task {
-  id: number;
-  text: string;
-}
+import { Task } from '../models/task.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TaskService {
   private tasks: Task[] = [];
-  private tasksSubject = new BehaviorSubject<Task[]>(this.tasks);
+  private idCounter = 1;
 
-  tasks$ = this.tasksSubject.asObservable();
-
-  addTask(taskText: string): void {
-    if (!taskText.trim()) {
-      return;
-    }
-    const newTask: Task = {
-      id: new Date().getTime(),
-      text: taskText.trim()
-    };
-    this.tasks.push(newTask);
-    this.tasksSubject.next(this.tasks);
+  getTasks(): Task[] {
+    return this.tasks;
   }
 
-  removeTask(taskId: number): void {
-    this.tasks = this.tasks.filter(task => task.id !== taskId);
-    this.tasksSubject.next(this.tasks);
+  addTask(description: string): Task | null {
+    if (!description.trim()) {
+      return null;
+    }
+    const task: Task = {
+      id: this.idCounter++,
+      description: description
+    };
+    this.tasks.push(task);
+    return task;
+  }
+
+  removeTask(id: number): void {
+    this.tasks = this.tasks.filter(task => task.id !== id);
   }
 }
