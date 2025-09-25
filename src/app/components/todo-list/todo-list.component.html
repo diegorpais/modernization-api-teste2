@@ -1,0 +1,14 @@
+<div class="container">
+  <h1>Todo List</h1>
+  <div class="input-group">
+    <input [(ngModel)]="newTodoDescription" placeholder="New todo..." class="todo-input" />
+    <button (click)="addTodo()" class="add-button">Add</button>
+  </div>
+  <ul class="todo-list">
+    <li *ngFor="let todo of todos" class="todo-item">
+      <input type="checkbox" [checked]="todo.isComplete" (change)="toggleCompletion(todo)" class="todo-checkbox">
+      <span [class.completed]="todo.isComplete">{{ todo.description }}</span>
+      <button (click)="deleteTodo(todo.id)" class="delete-button">Delete</button>
+    </li>
+  </ul>
+</div>
